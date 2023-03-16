@@ -11,15 +11,16 @@
         <button @click="getGitRepos" class="btn btnPrimary">
           START SEARCH!
         </button>
-
-        <div class="repos__wrapper" v-if="repos">
-          <div class="repos-item" v-for="repo in repos" :key="repo.id">
-            <div class="repos-info">
-              <a class="link" target="_blank" :href="repo.html_url">
-                {{ repo.name }}
-              </a>
-              <div class="repos-date">
-                <span> создан - {{ changDate(repo.created_at) }} 🗓 </span>
+        <!-- date -->
+        <div class="repos-container">
+          <div class="repos__wrapper" v-if="repos">
+            <div class="repos-item" v-for="repo in repos" :key="repo.id">
+              <div class="repos-info">
+                <a class="link" target="_blank" :href="repo.html_url">
+                  {{ repo.name }}
+                </a>
+                <div>🗓создан - &nbsp;</div>
+                <p>{{ changDate(repo.created_at) }}</p>
               </div>
             </div>
           </div>
@@ -55,7 +56,7 @@ export default {
     },
     changDate(isoDate) {
       const dateObj = new Date(isoDate);
-      const normalDate = dateObj.toLocaleString();
+      const normalDate = dateObj.toLocaleString().slice(0, -3);
       return normalDate;
     },
   },
@@ -68,21 +69,27 @@ export default {
   align-items: center;
   flex-direction: column;
 }
+.repos-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 .btn {
   margin-top: 30px;
 }
 .repos__wrapper {
-  width: 800px;
+  min-width: 800px;
   margin: 30px 0;
+  text-align: left;
 }
 .repos-info {
   display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
+  align-items: center;
   margin-bottom: 5px;
 }
-.repos-date {
-  display: flex;
+a.link {
+  width: 40%;
+  border-bottom: none;
   text-align: left;
 }
 </style>
