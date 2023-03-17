@@ -2,12 +2,18 @@
   <div class="wrapper-content wrapper-content--fixed">
     <section>
       <div class="container">
+        <!-- error -->
+        <div class="error" style="color: hsl(0, 100%, 50%)" v-if="error">
+          <p>{{ error }}</p>
+        </div>
+
         <div class="container-search">
           <Search
             :value="search"
             placeholder="username"
             @search="search = $event"
           />
+
           <!-- принимаем emit -->
           <button @click="getGitRepos" class="btn btnPrimary">SEARCH!</button>
         </div>
@@ -54,6 +60,7 @@ export default {
     return {
       search: "",
       repos: null,
+      error: null,
     };
   },
   methods: {
@@ -61,11 +68,13 @@ export default {
       axios
         .get(`https://api.github.com/users/${this.search}/repos`)
         .then((res) => {
-          this.repos = res.data;
+          (this.err = null), (this.repos = res.data);
           // console.log(res);
         })
         .catch((err) => {
-          console.log(err);
+          this.repos = null;
+          this.error = "Can`t found this user";
+          // console.log(err);
         });
     },
     changDate(isoDate) {
@@ -98,5 +107,9 @@ a.link {
   border-bottom: none;
   text-align: left;
   font-size: 18px;
+}
+.error {
+  text-align: center;
+  margin: 0 80px 20px 0;
 }
 </style>

@@ -81,14 +81,12 @@ input.input-search {
   margin-bottom: 0px;
   border-radius: 30px;
   background-color:#ededed;
-  color: #909399 ;
+  color: #999090 ;
   font-size: 16px;
   min-width: 400px;
   height: auto;
 }
-// input.input-search:focus {
-//   border-color: red;
-// }
+
 </style>
 
 
