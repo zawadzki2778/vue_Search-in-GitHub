@@ -2,26 +2,25 @@
   <div class="wrapper-content wrapper-content--fixed">
     <section>
       <div class="container">
-        <Search
-          :value="search"
-          placeholder="username"
-          @search="search = $event"
-        />
-        <!-- принимаем emit -->
-        <button @click="getGitRepos" class="btn btnPrimary">
-          START SEARCH!
-        </button>
+        <div class="container-search">
+          <Search
+            :value="search"
+            placeholder="username"
+            @search="search = $event"
+          />
+          <!-- принимаем emit -->
+          <button @click="getGitRepos" class="btn btnPrimary">SEARCH!</button>
+        </div>
+
         <!-- date -->
-        <div class="repos-container">
-          <div class="repos__wrapper" v-if="repos">
-            <div class="repos-item" v-for="repo in repos" :key="repo.id">
-              <div class="repos-info">
-                <a class="link" target="_blank" :href="repo.html_url">
-                  {{ repo.name }}
-                </a>
-                <div>🗓создан - &nbsp;</div>
-                <p>{{ changDate(repo.created_at) }}</p>
-              </div>
+        <div class="container-repos" v-if="repos">
+          <div class="repos-item" v-for="repo in repos" :key="repo.id">
+            <div class="repos-info">
+              <a class="link" target="_blank" :href="repo.html_url">
+                {{ repo.name }}
+              </a>
+              <div>🗓создан - &nbsp;</div>
+              <p>{{ changDate(repo.created_at) }}</p>
             </div>
           </div>
         </div>
@@ -64,28 +63,38 @@ export default {
 </script>
 
 <style lang="scss" scope>
-.container {
+.container-search {
   display: flex;
-  align-items: center;
-  flex-direction: column;
+  align-items: baseline;
+  justify-content: center;
+  margin: 0 auto;
 }
-.repos-container {
+.container-repos {
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
+  margin: 0 auto;
+  flex-wrap: wrap;
 }
 .btn {
   margin-top: 30px;
 }
-.repos__wrapper {
-  min-width: 800px;
-  margin: 30px 0;
+// .repos__wrapper {
+//   min-width: 800px;
+//   margin: 30px 0;
+//   text-align: left;
+// }
+.repos-items {
   text-align: left;
+  margin: 0 auto;
 }
 .repos-info {
   display: flex;
   align-items: center;
+  justify-content: center;
   margin-bottom: 5px;
+  width: 600px;
 }
 a.link {
   width: 40%;
