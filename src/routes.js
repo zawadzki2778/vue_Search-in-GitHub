@@ -8,7 +8,6 @@ Vue.use(Router)
 import Home from '@/pages/Home'
 import NotFound from "@/pages/404"
 
-
 // Routering
 export default new Router({
   // mode: "history",

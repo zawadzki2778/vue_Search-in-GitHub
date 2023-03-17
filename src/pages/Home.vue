@@ -11,18 +11,33 @@
           <!-- принимаем emit -->
           <button @click="getGitRepos" class="btn btnPrimary">SEARCH!</button>
         </div>
-
-        <!-- date -->
-        <div class="container-repos" v-if="repos">
-          <div class="repos-item" v-for="repo in repos" :key="repo.id">
-            <div class="repos-info">
-              <a class="link" target="_blank" :href="repo.html_url">
-                {{ repo.name }}
-              </a>
-              <div>🗓создан - &nbsp;</div>
-              <p>{{ changDate(repo.created_at) }}</p>
-            </div>
-          </div>
+        <div class="container-table">
+          <v-simple-table>
+            <template v-slot:default>
+              <thead>
+                <tr>
+                  <th style="font-size: 20px" class="text-left">
+                    Name of repositories
+                  </th>
+                  <th style="font-size: 20px" class="text-left">
+                    Date of creation
+                  </th>
+                </tr>
+              </thead>
+              <tbody v-if="repos">
+                <tr v-for="repo in repos" :key="repo.id">
+                  <td style="font-size: 16px">
+                    <a class="link" target="_blank" :href="repo.html_url">
+                      {{ repo.name }}
+                    </a>
+                  </td>
+                  <td style="font-size: 16px">
+                    {{ changDate(repo.created_at) }}
+                  </td>
+                </tr>
+              </tbody>
+            </template>
+          </v-simple-table>
         </div>
       </div>
     </section>
@@ -44,10 +59,10 @@ export default {
   methods: {
     getGitRepos() {
       axios
-        .get(`https://api.github.com/users/zawadzki2778/repos`)
+        .get(`https://api.github.com/users/${this.search}/repos`)
         .then((res) => {
           this.repos = res.data;
-          console.log(res);
+          // console.log(res);
         })
         .catch((err) => {
           console.log(err);
@@ -67,38 +82,21 @@ export default {
   display: flex;
   align-items: baseline;
   justify-content: center;
-  margin: 0 auto;
+  margin-right: 220px;
 }
-.container-repos {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  margin: 0 auto;
-  flex-wrap: wrap;
+.container-table {
+  margin: 40px auto;
+  max-width: 70%;
 }
+
 .btn {
-  margin-top: 30px;
+  margin-left: 100px;
 }
-// .repos__wrapper {
-//   min-width: 800px;
-//   margin: 30px 0;
-//   text-align: left;
-// }
-.repos-items {
-  text-align: left;
-  margin: 0 auto;
-}
-.repos-info {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 5px;
-  width: 600px;
-}
+
 a.link {
   width: 40%;
   border-bottom: none;
   text-align: left;
+  font-size: 18px;
 }
 </style>

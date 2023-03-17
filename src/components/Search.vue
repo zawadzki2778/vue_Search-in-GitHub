@@ -21,7 +21,12 @@
       </div>
     </div>
     <!-- Search input -->
-    <input type="text" :placeholder="placeholder" v-model="search" />
+    <input
+      class="input-search"
+      type="text"
+      :placeholder="placeholder"
+      v-model="search"
+    />
   </div>
 </template>
 
@@ -39,8 +44,8 @@ export default {
   },
   data() {
     return {
-      search: this.value
-    }
+      search: this.value,
+    };
   },
   watch: {
     search(val) {
@@ -50,7 +55,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang="scss" >
 svg {
   color: #e4e4e4;
 }
@@ -71,15 +76,19 @@ svg {
   align-items: center;
   display: flex;
 }
-input {
+input.input-search {
   padding: 16px 16px 16px 56px !important;
   margin-bottom: 0px;
   border-radius: 30px;
-  color: #909399;
+  background-color:#ededed;
+  color: #909399 ;
   font-size: 16px;
   min-width: 400px;
   height: auto;
 }
+// input.input-search:focus {
+//   border-color: red;
+// }
 </style>
 
 
